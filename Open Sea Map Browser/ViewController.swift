@@ -8,9 +8,12 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
+    var locationManager: CLLocationManager!
+    var locationFormatter: TTTGeocoordinateFormatter!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,13 @@ class ViewController: UIViewController {
         let demoCenter = CLLocationCoordinate2D(latitude: 54.19, longitude: 12.09)
         let demoRegion = MKCoordinateRegionMake(demoCenter, MKCoordinateSpanMake(0.015, 0.028))
         self.mapView.setRegion(demoRegion, animated: true)
+
+        self.locationManager = CLLocationManager()
+        self.locationManager.delegate = self;
+        let trackingItem = MKUserTrackingBarButtonItem(mapView:self.mapView)
+        self.toolbarItems = [trackingItem]
+
+        self.locationFormatter = TTTGeocoordinateFormatter.degreesMinutesGeocoordinateFormatter()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,12 +40,33 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: MKMapViewDelegate
+
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         if overlay is MKTileOverlay {
             return MKTileOverlayRenderer(overlay: overlay)
         }
         NSLog("no renderer found")
         return nil
+    }
+
+    func mapViewWillStartLocatingUser(mapView: MKMapView!) {
+        let status = CLLocationManager.authorizationStatus()
+
+        if status == CLAuthorizationStatus.NotDetermined {
+            self.locationManager.requestWhenInUseAuthorization()
+        }
+    }
+
+    func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
+        if (self.locationFormatter != nil) {
+            self.navigationItem.title = self.locationFormatter.stringFromCoordinate(self.mapView.centerCoordinate)
+            self.updateLocationNameForCenterOfMapView(mapView)
+        }
+    }
+
+    func updateLocationNameForCenterOfMapView(mapView: MKMapView!) {
+
     }
 }
 
