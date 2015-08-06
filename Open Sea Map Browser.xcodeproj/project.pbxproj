@@ -154,6 +154,7 @@
 				2B64A7861B72A25600859A4C /* Sources */,
 				2B64A7871B72A25600859A4C /* Frameworks */,
 				2B64A7881B72A25600859A4C /* Resources */,
+				2BB9093E1B74099300357A89 /* Update Build Number */,
 			);
 			buildRules = (
 			);
@@ -188,6 +189,7 @@
 		2B64A7821B72A25600859A4C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Hal Mueller";
 				TargetAttributes = {
@@ -243,6 +245,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2BB9093E1B74099300357A89 /* Update Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Update Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#\n# Set the build number to the current git commit count.\n# If we're using the Dev scheme, then we'll suffix the build\n# number with the current branch name, to make collisions\n# far less likely across feature branches.\n# Based on: http://w3facility.info/question/how-do-i-force-xcode-to-rebuild-the-info-plist-file-in-my-project-every-time-i-build-the-project/\n# as described in http://blog.jaredsinclair.com/post/97193356620/the-best-of-all-possible-xcode-automated-build\n#\ngit=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list --all |wc -l`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2B64A7861B72A25600859A4C /* Sources */ = {
@@ -457,6 +476,7 @@
 				2B64A7AB1B72A25600859A4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2B64A7AC1B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open Sea Map BrowserTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +485,7 @@
 				2B64A7AE1B72A25600859A4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
