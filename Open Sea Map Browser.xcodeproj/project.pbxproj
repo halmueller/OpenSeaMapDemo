@@ -16,6 +16,7 @@
 		2B64A7B01B72B93900859A4C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B64A7AF1B72B93900859A4C /* MapKit.framework */; };
 		2B64A7B41B72C61900859A4C /* TTTGeocoordinateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B64A7B31B72C61900859A4C /* TTTGeocoordinateFormatter.m */; };
 		2B64A7B81B72C63900859A4C /* TTTLocationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B64A7B71B72C63900859A4C /* TTTLocationFormatter.m */; };
+		2B64A7BB1B72EC2500859A4C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B64A7BA1B72EC2500859A4C /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		2B64A7B61B72C63900859A4C /* TTTLocationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTLocationFormatter.h; sourceTree = "<group>"; };
 		2B64A7B71B72C63900859A4C /* TTTLocationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTLocationFormatter.m; sourceTree = "<group>"; };
 		2B64A7B91B72CCA400859A4C /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = "Open Sea Map Browser/MyPlayground.playground"; sourceTree = "<group>"; };
+		2B64A7BA1B72EC2500859A4C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				2B64A78F1B72A25600859A4C /* AppDelegate.swift */,
 				2B64A7911B72A25600859A4C /* ViewController.swift */,
 				2B64A7931B72A25600859A4C /* Main.storyboard */,
+				2B64A7BA1B72EC2500859A4C /* SettingsViewController.swift */,
 				2B64A7961B72A25600859A4C /* Images.xcassets */,
 				2B64A7981B72A25600859A4C /* LaunchScreen.xib */,
 				2B64A7B51B72C62500859A4C /* Formatter Kit */,
@@ -246,6 +249,7 @@
 				2B64A7B41B72C61900859A4C /* TTTGeocoordinateFormatter.m in Sources */,
 				2B64A7921B72A25600859A4C /* ViewController.swift in Sources */,
 				2B64A7B81B72C63900859A4C /* TTTLocationFormatter.m in Sources */,
+				2B64A7BB1B72EC2500859A4C /* SettingsViewController.swift in Sources */,
 				2B64A7901B72A25600859A4C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
