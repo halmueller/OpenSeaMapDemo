@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Open Sea Map Browser.xcodeproj">
+      location = "self:/Users/hal/DevelopmentSandbox/OpenSeaMapDemo/Open Sea.xcodeproj">
    </FileRef>
 </Workspace>
