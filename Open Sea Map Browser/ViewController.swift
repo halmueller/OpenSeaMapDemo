@@ -10,6 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 
+let regionDefaultsKeystring = "mapRegion"
+
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     var locationManager: CLLocationManager!
@@ -27,9 +29,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.mapView.addOverlay(openSeaMapOverlay, level: MKOverlayLevel.AboveRoads)
         }
 
-        let demoCenter = CLLocationCoordinate2D(latitude: 54.19, longitude: 12.09)
-        let demoRegion = MKCoordinateRegionMake(demoCenter, MKCoordinateSpanMake(0.015, 0.028))
-        self.mapView.setRegion(demoRegion, animated: true)
+        if let storedRegion = NSUserDefaults.standardUserDefaults().regionForKey(regionDefaultsKeystring) {
+            self.mapView.setRegion(storedRegion, animated: true)
+        }
+        else {
+            let demoCenter = CLLocationCoordinate2D(latitude: 54.19, longitude: 12.09)
+            let demoRegion = MKCoordinateRegionMake(demoCenter, MKCoordinateSpanMake(0.015, 0.028))
+            self.mapView.setRegion(demoRegion, animated: true)
+        }
 
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self;
@@ -71,6 +78,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if (self.locationFormatter != nil) {
             self.updateLocationNameForCenterOfMapView(mapView)
         }
+        let mapRegion = self.mapView.region
+        NSUserDefaults.standardUserDefaults().setRegion(mapRegion, forKey: regionDefaultsKeystring)
     }
     // MARK: custom
 
@@ -90,15 +99,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         self.geocoder.reverseGeocodeLocation(centerLocation, completionHandler: { (placemarks, error) -> Void in
             if error == nil && placemarks.count > 0 {
                 let mark = placemarks[0] as! CLPlacemark
+                var foundAName = false;
                 var newLocationName: String = ""
                 println("\(mark)")
                 if (mark.ocean != nil) {
+                    foundAName = true
                     newLocationName += mark.ocean
                     if (mark.inlandWater != nil) && (mark.inlandWater != mark.ocean) {
                         newLocationName += " (\(mark.inlandWater))"
                     }
                 }
                 else if (mark.inlandWater != nil) {
+                    foundAName = true
                     newLocationName += "\(mark.inlandWater)"
                 }
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
