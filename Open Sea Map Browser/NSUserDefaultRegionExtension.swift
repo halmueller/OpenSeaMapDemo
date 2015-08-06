@@ -3,7 +3,7 @@
 //  Open Sea Map Browser
 //
 //  from https://gist.github.com/bluwave/f8049f53a83f1323fcc4#file-nsuserdefaultregionextension
-//
+//  Author: G Richards (bluwave)
 //
 
 import UIKit
