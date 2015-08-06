@@ -11,20 +11,23 @@ import MapKit
 import CoreLocation
 
 let regionDefaultsKeystring = "mapRegion"
+let useOpenSeaMapKeystring = "useOpenSeaMap"
+let mapStyleKeystring = "mapStyle"
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     var locationManager: CLLocationManager!
     var locationFormatter: TTTGeocoordinateFormatter!
     var geocoder: CLGeocoder!
-    var useOSM: Bool = true
+    var useOSM: Bool = NSUserDefaults.standardUserDefaults().boolForKey(useOpenSeaMapKeystring)
     var openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.openSeaMapOverlay.minimumZ = 9
-        self.openSeaMapOverlay.maximumZ = 17
+        openSeaMapOverlay.minimumZ = 9
+        openSeaMapOverlay.maximumZ = 17
+
         if useOSM {
             self.mapView.addOverlay(openSeaMapOverlay, level: MKOverlayLevel.AboveRoads)
         }
@@ -92,15 +95,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.useOSM = true
             self.mapView.addOverlay(self.openSeaMapOverlay)
         }
+        NSUserDefaults.standardUserDefaults().setBool(self.useOSM, forKey: useOpenSeaMapKeystring)
     }
+
     func updateLocationNameForCenterOfMapView(mapView: MKMapView!) {
         let centerLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         self.geocoder.cancelGeocode()
         self.geocoder.reverseGeocodeLocation(centerLocation, completionHandler: { (placemarks, error) -> Void in
+            var foundAName = false;
+            var newLocationName: String = ""
             if error == nil && placemarks.count > 0 {
                 let mark = placemarks[0] as! CLPlacemark
-                var foundAName = false;
-                var newLocationName: String = ""
                 println("\(mark)")
                 if (mark.ocean != nil) {
                     foundAName = true
@@ -113,6 +118,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     foundAName = true
                     newLocationName += "\(mark.inlandWater)"
                 }
+            }
+
+            if foundAName {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.navigationItem.title = newLocationName
                 })
@@ -124,6 +132,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         })
     }
+
     @IBAction func changeMap(sender: AnyObject) {
         self.performSegueWithIdentifier("settingsSegue", sender: sender)
     }
