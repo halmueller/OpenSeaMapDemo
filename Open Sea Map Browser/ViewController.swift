@@ -106,6 +106,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             var newLocationName: String = ""
             if error == nil && placemarks.count > 0 {
                 let mark = placemarks[0] as! CLPlacemark
+                println("\(mark)")
                 if (mark.ocean != nil) {
                     foundAName = true
                     newLocationName += mark.ocean

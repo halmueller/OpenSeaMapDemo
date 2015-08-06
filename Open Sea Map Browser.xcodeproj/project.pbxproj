@@ -31,14 +31,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B64A78A1B72A25600859A4C /* Open Sea.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Open Sea.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B64A78A1B72A25600859A4C /* Open Sea Map Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Open Sea Map Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B64A78E1B72A25600859A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B64A78F1B72A25600859A4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B64A7911B72A25600859A4C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2B64A7941B72A25600859A4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2B64A7961B72A25600859A4C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2B64A7991B72A25600859A4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		2B64A79F1B72A25600859A4C /* Open SeaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Open SeaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B64A79F1B72A25600859A4C /* Open Sea Map BrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Open Sea Map BrowserTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B64A7A41B72A25600859A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B64A7A51B72A25600859A4C /* Open_Sea_Map_BrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Open_Sea_Map_BrowserTests.swift; sourceTree = "<group>"; };
 		2B64A7AF1B72B93900859A4C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -85,8 +85,8 @@
 		2B64A78B1B72A25600859A4C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2B64A78A1B72A25600859A4C /* Open Sea.app */,
-				2B64A79F1B72A25600859A4C /* Open SeaTests.xctest */,
+				2B64A78A1B72A25600859A4C /* Open Sea Map Browser.app */,
+				2B64A79F1B72A25600859A4C /* Open Sea Map BrowserTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -147,9 +147,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2B64A7891B72A25600859A4C /* Open Sea */ = {
+		2B64A7891B72A25600859A4C /* Open Sea Map Browser */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2B64A7A91B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open Sea" */;
+			buildConfigurationList = 2B64A7A91B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open Sea Map Browser" */;
 			buildPhases = (
 				2B64A7861B72A25600859A4C /* Sources */,
 				2B64A7871B72A25600859A4C /* Frameworks */,
@@ -160,14 +160,14 @@
 			);
 			dependencies = (
 			);
-			name = "Open Sea";
+			name = "Open Sea Map Browser";
 			productName = "Open Sea Map Browser";
-			productReference = 2B64A78A1B72A25600859A4C /* Open Sea.app */;
+			productReference = 2B64A78A1B72A25600859A4C /* Open Sea Map Browser.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2B64A79E1B72A25600859A4C /* Open SeaTests */ = {
+		2B64A79E1B72A25600859A4C /* Open Sea Map BrowserTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2B64A7AC1B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open SeaTests" */;
+			buildConfigurationList = 2B64A7AC1B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open Sea Map BrowserTests" */;
 			buildPhases = (
 				2B64A79B1B72A25600859A4C /* Sources */,
 				2B64A79C1B72A25600859A4C /* Frameworks */,
@@ -178,9 +178,9 @@
 			dependencies = (
 				2B64A7A11B72A25600859A4C /* PBXTargetDependency */,
 			);
-			name = "Open SeaTests";
+			name = "Open Sea Map BrowserTests";
 			productName = "Open Sea Map BrowserTests";
-			productReference = 2B64A79F1B72A25600859A4C /* Open SeaTests.xctest */;
+			productReference = 2B64A79F1B72A25600859A4C /* Open Sea Map BrowserTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -207,7 +207,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2B64A7851B72A25600859A4C /* Build configuration list for PBXProject "Open Sea" */;
+			buildConfigurationList = 2B64A7851B72A25600859A4C /* Build configuration list for PBXProject "Open Sea Map Browser" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -220,8 +220,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2B64A7891B72A25600859A4C /* Open Sea */,
-				2B64A79E1B72A25600859A4C /* Open SeaTests */,
+				2B64A7891B72A25600859A4C /* Open Sea Map Browser */,
+				2B64A79E1B72A25600859A4C /* Open Sea Map BrowserTests */,
 			);
 		};
 /* End PBXProject section */
@@ -290,7 +290,7 @@
 /* Begin PBXTargetDependency section */
 		2B64A7A11B72A25600859A4C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2B64A7891B72A25600859A4C /* Open Sea */;
+			target = 2B64A7891B72A25600859A4C /* Open Sea Map Browser */;
 			targetProxy = 2B64A7A01B72A25600859A4C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -405,7 +405,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Open Sea Map Browser/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "Open Sea";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Open Sea Map Browser/Open Sea Map Browser-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -418,7 +418,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Open Sea Map Browser/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "Open Sea";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Open Sea Map Browser/Open Sea Map Browser-Bridging-Header.h";
 			};
 			name = Release;
@@ -437,7 +437,7 @@
 				);
 				INFOPLIST_FILE = "Open Sea Map BrowserTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "Open SeaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Open Sea Map Browser.app/Open Sea Map Browser";
 			};
 			name = Debug;
@@ -452,7 +452,7 @@
 				);
 				INFOPLIST_FILE = "Open Sea Map BrowserTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "Open SeaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Open Sea Map Browser.app/Open Sea Map Browser";
 			};
 			name = Release;
@@ -460,7 +460,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2B64A7851B72A25600859A4C /* Build configuration list for PBXProject "Open Sea" */ = {
+		2B64A7851B72A25600859A4C /* Build configuration list for PBXProject "Open Sea Map Browser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B64A7A71B72A25600859A4C /* Debug */,
@@ -469,7 +469,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2B64A7A91B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open Sea" */ = {
+		2B64A7A91B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open Sea Map Browser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B64A7AA1B72A25600859A4C /* Debug */,
@@ -478,7 +478,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2B64A7AC1B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open SeaTests" */ = {
+		2B64A7AC1B72A25600859A4C /* Build configuration list for PBXNativeTarget "Open Sea Map BrowserTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B64A7AD1B72A25600859A4C /* Debug */,
