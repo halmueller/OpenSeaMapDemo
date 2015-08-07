@@ -19,7 +19,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var locationManager: CLLocationManager!
     var locationFormatter: TTTGeocoordinateFormatter!
     var geocoder: CLGeocoder!
-    var useOSM: Bool = NSUserDefaults.standardUserDefaults().boolForKey(useOpenSeaMapKeystring)
+    var useOSM: Bool = true
     var openSeaMapOverlay: MKTileOverlay!
     var openSeaMapTileRenderer: MKTileOverlayRenderer!
 
@@ -31,6 +31,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         openSeaMapOverlay.maximumZ = 17
         openSeaMapTileRenderer = MKTileOverlayRenderer(overlay: openSeaMapOverlay)
 
+        useOSM = NSUserDefaults.standardUserDefaults().boolForKey(useOpenSeaMapKeystring)
         if useOSM {
             mapView.addOverlay(openSeaMapOverlay, level: MKOverlayLevel.AboveRoads)
         }
@@ -40,7 +41,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         else {
             let demoCenter = CLLocationCoordinate2D(latitude: 54.19, longitude: 12.09)
-            let demoRegion = MKCoordinateRegionMake(demoCenter, MKCoordinateSpanMake(0.015, 0.028))
+            let demoRegion = MKCoordinateRegionMake(demoCenter, MKCoordinateSpanMake(0.04, 0.03))
             mapView.setRegion(demoRegion, animated: true)
         }
 
@@ -112,7 +113,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             var newLocationName: String = ""
             if error == nil && placemarks.count > 0 {
                 let mark = placemarks[0] as! CLPlacemark
-                println("\(mark)")
                 if (mark.ocean != nil) {
                     foundAName = true
                     newLocationName += mark.ocean
