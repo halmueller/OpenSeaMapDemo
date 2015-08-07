@@ -153,7 +153,7 @@
                             <constraint firstItem="AWt-Mx-5Y3" firstAttribute="baseline" secondItem="g5V-hE-su9" secondAttribute="baseline" id="VsJ-de-Nwf"/>
                             <constraint firstItem="Kg3-BO-SDQ" firstAttribute="top" secondItem="AWt-Mx-5Y3" secondAttribute="bottom" constant="29" id="a78-tz-UOJ"/>
                             <constraint firstItem="jIm-L0-sgX" firstAttribute="leading" secondItem="Kg3-BO-SDQ" secondAttribute="trailing" constant="8" symbolic="YES" id="cN1-hu-YvN"/>
-                            <constraint firstItem="g5V-hE-su9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="N0u-qF-Zxg" secondAttribute="bottom" constant="20" id="ccZ-O9-1dc"/>
+                            <constraint firstItem="g5V-hE-su9" firstAttribute="top" secondItem="N0u-qF-Zxg" secondAttribute="bottom" constant="8" symbolic="YES" id="ccZ-O9-1dc"/>
                             <constraint firstItem="Kg3-BO-SDQ" firstAttribute="leading" secondItem="vfi-PN-Lvs" secondAttribute="leading" id="fUN-UI-AmP"/>
                             <constraint firstItem="bhk-Xu-mzs" firstAttribute="top" secondItem="jIm-L0-sgX" secondAttribute="bottom" constant="8" symbolic="YES" id="fq2-ap-cr5"/>
                             <constraint firstItem="Kg3-BO-SDQ" firstAttribute="leading" secondItem="kgH-VG-Tvg" secondAttribute="leadingMargin" id="kNN-eT-ZwB"/>
@@ -169,7 +169,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="IG9-Mv-ztU"/>
                                 <exclude reference="2LV-LT-7bx"/>
+                                <exclude reference="a78-tz-UOJ"/>
                                 <exclude reference="nt3-LD-15d"/>
                                 <exclude reference="6oj-d2-f7k"/>
                                 <exclude reference="xix-z4-HKH"/>
