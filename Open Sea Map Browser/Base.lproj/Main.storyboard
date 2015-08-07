@@ -117,7 +117,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhk-Xu-mzs">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bhk-Xu-mzs">
                                 <rect key="frame" x="16" y="113" width="288" height="30"/>
                                 <state key="normal" title="Visit OpenSeaMap website">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -126,12 +126,23 @@
                                     <action selector="visitOpenSeaMapWebsite:" destination="f4M-4v-23u" eventType="touchUpInside" id="9s6-Rk-h4o"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWp-Og-qOg">
+                                <rect key="frame" x="210" y="70" width="49" height="30"/>
+                                <state key="normal" title="Reload">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="reloadOpenSeaMapTiles:" destination="f4M-4v-23u" eventType="touchUpInside" id="ucb-SY-JMm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kg3-BO-SDQ" firstAttribute="centerX" secondItem="jIm-L0-sgX" secondAttribute="centerX" id="2LV-LT-7bx"/>
+                            <constraint firstItem="EWp-Og-qOg" firstAttribute="top" secondItem="g5V-hE-su9" secondAttribute="bottom" constant="22" id="4jE-a8-Sfj"/>
                             <constraint firstItem="jIm-L0-sgX" firstAttribute="top" secondItem="g5V-hE-su9" secondAttribute="bottom" constant="20" id="5yo-B8-B9z"/>
                             <constraint firstItem="g5V-hE-su9" firstAttribute="top" secondItem="N0u-qF-Zxg" secondAttribute="bottom" id="6oj-d2-f7k"/>
+                            <constraint firstItem="EWp-Og-qOg" firstAttribute="leading" secondItem="jIm-L0-sgX" secondAttribute="trailing" constant="17" id="7BD-9D-C0A"/>
                             <constraint firstItem="g5V-hE-su9" firstAttribute="leading" secondItem="kgH-VG-Tvg" secondAttribute="leadingMargin" constant="79" id="AOV-Ok-pyY"/>
                             <constraint firstItem="AWt-Mx-5Y3" firstAttribute="top" secondItem="N0u-qF-Zxg" secondAttribute="bottom" constant="3" id="IG9-Mv-ztU"/>
                             <constraint firstItem="vfi-PN-Lvs" firstAttribute="top" secondItem="jIm-L0-sgX" secondAttribute="bottom" constant="13" id="JXW-lq-hIV"/>
@@ -161,6 +172,7 @@
                                 <exclude reference="2LV-LT-7bx"/>
                                 <exclude reference="nt3-LD-15d"/>
                                 <exclude reference="6oj-d2-f7k"/>
+                                <exclude reference="xix-z4-HKH"/>
                                 <exclude reference="JXW-lq-hIV"/>
                             </mask>
                         </variation>

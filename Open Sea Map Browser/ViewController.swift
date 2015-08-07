@@ -20,13 +20,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var locationFormatter: TTTGeocoordinateFormatter!
     var geocoder: CLGeocoder!
     var useOSM: Bool = NSUserDefaults.standardUserDefaults().boolForKey(useOpenSeaMapKeystring)
-    var openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
+    var openSeaMapOverlay: MKTileOverlay!
+    var openSeaMapTileRenderer: MKTileOverlayRenderer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
         openSeaMapOverlay.minimumZ = 9
         openSeaMapOverlay.maximumZ = 17
+        openSeaMapTileRenderer = MKTileOverlayRenderer(overlay: openSeaMapOverlay)
 
         if useOSM {
             self.mapView.addOverlay(openSeaMapOverlay, level: MKOverlayLevel.AboveRoads)
@@ -41,6 +44,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.mapView.setRegion(demoRegion, animated: true)
         }
 
+        if let mapType = MKMapType(rawValue: UInt(NSUserDefaults.standardUserDefaults().integerForKey(mapStyleKeystring))) {
+            self.mapView.mapType = mapType
+        }
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self;
 
@@ -63,7 +69,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         if overlay is MKTileOverlay {
-            return MKTileOverlayRenderer(overlay: overlay)
+            return openSeaMapTileRenderer
         }
         NSLog("no renderer found")
         return nil
@@ -135,6 +141,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
     @IBAction func changeMap(sender: AnyObject) {
         self.performSegueWithIdentifier("settingsSegue", sender: sender)
+    }
+
+    func reloadOpenSeaMapOverlay () {
+        self.openSeaMapTileRenderer.reloadData()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

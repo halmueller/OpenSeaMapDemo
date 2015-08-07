@@ -56,6 +56,10 @@ class SettingsViewController: UIViewController {
         }
     }
 
+    @IBAction func reloadOpenSeaMapTiles(sender: AnyObject) {
+        self.mapViewController?.reloadOpenSeaMapOverlay()
+    }
+
     @IBAction func visitOpenSeaMapWebsite(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.openseamap.org/index.php?id=openseamap&L=1")!)
     }
@@ -70,6 +74,9 @@ class SettingsViewController: UIViewController {
         default:
             self.mapViewController?.mapView.mapType = .Standard
         }
+        let mapType = self.mapViewController?.mapView?.mapType
+        NSUserDefaults.standardUserDefaults().setInteger( Int(mapType!.rawValue),
+            forKey:mapStyleKeystring)
     }
     @IBAction func changeOSMOverlay(sender: UISwitch) {
         self.mapViewController?.toggleUseOSM()
