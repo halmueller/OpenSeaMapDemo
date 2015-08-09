@@ -6,7 +6,6 @@ This is a universal app, written mostly in Swift, and borrowing from [FormatterK
 
 Swift 1.2, Xcode 6, and iOS 8.4 are required.
 
-![San Francisco Bay Entrance](Screenshots/iOS%20Simulator%20Screen%20Shot%20Aug%206%2C%202015%2C%206.23.06%20PM.png)
+![Warnemünde Entrance](Screenshots/Warnemünde.png)
 
-![Warnemünde Entrance](Screenshots/iOS%20Simulator%20Screen%20Shot%20Aug%206%2C%202015%2C%208.03.51%20PM.png)
-
+![San Francisco Bay Entrance](Screenshots/San%20Francisco.png)
