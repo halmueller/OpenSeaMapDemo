@@ -31,3 +31,8 @@ numberFormatter.stringFromNumber(15)
 numberFormatter.stringFromNumber(5.1237)
 
 numberFormatter.stringFromNumber(5.4)
+
+import MapKit
+//import OpenSeaMapOverlay
+let foo = OpenSeaMapOverlay()
+foo.URLTemplate

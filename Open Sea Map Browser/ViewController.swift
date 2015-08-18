@@ -26,9 +26,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
-        openSeaMapOverlay.minimumZ = 9
-        openSeaMapOverlay.maximumZ = 17
+		let myOverlay = OpenSeaMapOverlay()
+		print ("\(myOverlay)")
+		
+//        openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
+//        openSeaMapOverlay.minimumZ = 9
+//        openSeaMapOverlay.maximumZ = 17
+		openSeaMapOverlay = myOverlay
         openSeaMapTileRenderer = MKTileOverlayRenderer(overlay: openSeaMapOverlay)
 
         useOSM = NSUserDefaults.standardUserDefaults().boolForKey(useOpenSeaMapKeystring)

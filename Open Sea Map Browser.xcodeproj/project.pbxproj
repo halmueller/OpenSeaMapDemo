@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B648C341B827918008440F7 /* OpenSeaMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B648C331B827918008440F7 /* OpenSeaMapOverlay.swift */; };
 		2B64A7901B72A25600859A4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B64A78F1B72A25600859A4C /* AppDelegate.swift */; };
 		2B64A7921B72A25600859A4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B64A7911B72A25600859A4C /* ViewController.swift */; };
 		2B64A7951B72A25600859A4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B64A7931B72A25600859A4C /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B648C331B827918008440F7 /* OpenSeaMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSeaMapOverlay.swift; sourceTree = "<group>"; };
 		2B64A78A1B72A25600859A4C /* Open Sea Map Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Open Sea Map Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B64A78E1B72A25600859A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B64A78F1B72A25600859A4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				2B64A78F1B72A25600859A4C /* AppDelegate.swift */,
 				2B64A7911B72A25600859A4C /* ViewController.swift */,
+				2B648C331B827918008440F7 /* OpenSeaMapOverlay.swift */,
 				2B64A7BC1B730FD500859A4C /* NSUserDefaultRegionExtension.swift */,
 				2B64A7931B72A25600859A4C /* Main.storyboard */,
 				2B64A7BA1B72EC2500859A4C /* SettingsViewController.swift */,
@@ -271,6 +274,7 @@
 				2B64A7B41B72C61900859A4C /* TTTGeocoordinateFormatter.m in Sources */,
 				2B64A7921B72A25600859A4C /* ViewController.swift in Sources */,
 				2B64A7B81B72C63900859A4C /* TTTLocationFormatter.m in Sources */,
+				2B648C341B827918008440F7 /* OpenSeaMapOverlay.swift in Sources */,
 				2B64A7BB1B72EC2500859A4C /* SettingsViewController.swift in Sources */,
 				2B64A7901B72A25600859A4C /* AppDelegate.swift in Sources */,
 				2B64A7BD1B730FD500859A4C /* NSUserDefaultRegionExtension.swift in Sources */,
