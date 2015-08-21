@@ -31,23 +31,34 @@ class OpenSeaMapOverlay: MKTileOverlay {
 	override func loadTileAtPath(path: MKTileOverlayPath,
 		result: ((NSData!, NSError!) -> Void)!) {
 			
-			let request = NSURLRequest(URL: self.URLForTilePath(path))
-			//			println("\(request)")
-			NSURLConnection.sendAsynchronousRequest(request, queue: operationQueue) { (response, data , error)  in
-				if response != nil {
-					let httpResponse = response as! NSHTTPURLResponse
-					if httpResponse.statusCode == 200 {
-						let parentYFolderURL = self.URLForTilecacheFolder().URLByAppendingPathComponent(self.cacheYFolderNameForPath(path))
-						NSFileManager.defaultManager().createDirectoryAtURL(parentYFolderURL,
-							withIntermediateDirectories: true, attributes: nil, error: nil)
-						let image: UIImage? = UIImage(data: data)
-						let tileFilePathURL = parentYFolderURL.URLByAppendingPathComponent(self.filePathForTile(path))
-						let tileFilePath = tileFilePathURL.path!
-						if !data.writeToFile(tileFilePath, atomically: true) {
-							dispatch_async(dispatch_get_main_queue(),
-								{println("couldn't write \(tileFilePath)")})
+			let parentYFolderURL = URLForTilecacheFolder().URLByAppendingPathComponent(self.cacheYFolderNameForPath(path))
+			let tileFilePathURL = parentYFolderURL.URLByAppendingPathComponent(filePathForTile(path))
+			let tileFilePath = tileFilePathURL.path!
+			if NSFileManager.defaultManager().fileExistsAtPath(tileFilePath) {
+				println("found \(tileFilePath)")
+				let cachedData = NSData(contentsOfFile: tileFilePath)
+				result(cachedData, nil)
+			}
+			else {
+				let request = NSURLRequest(URL: self.URLForTilePath(path))
+				//			println("\(request)")
+				NSURLConnection.sendAsynchronousRequest(request, queue: operationQueue) { (response, data , error)  in
+					if response != nil {
+						let httpResponse = response as! NSHTTPURLResponse
+						if httpResponse.statusCode == 200 {
+							NSFileManager.defaultManager().createDirectoryAtURL(parentYFolderURL,
+								withIntermediateDirectories: true, attributes: nil, error: nil)
+							let image: UIImage? = UIImage(data: data)
+							if !data.writeToFile(tileFilePath, atomically: true) {
+								dispatch_async(dispatch_get_main_queue(),
+									{println("couldn't write \(tileFilePath)")})
+							}
+							result(data, error)
 						}
-						result(data, error)
+						else {
+							dispatch_async(dispatch_get_main_queue(),
+								{println("response \(httpResponse.statusCode) \(request.URL)")})
+						}
 					}
 				}
 			}
