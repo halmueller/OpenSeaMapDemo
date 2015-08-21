@@ -52,6 +52,7 @@
 		2B64A7B91B72CCA400859A4C /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = "Open Sea Map Browser/MyPlayground.playground"; sourceTree = "<group>"; };
 		2B64A7BA1B72EC2500859A4C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2B64A7BC1B730FD500859A4C /* NSUserDefaultRegionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultRegionExtension.swift; sourceTree = "<group>"; };
+		2B9DFFBE1B83E81B00FBC122 /* Caches.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Caches.playground; path = "Open Sea Map Browser/Caches.playground"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +77,7 @@
 		2B64A7811B72A25600859A4C = {
 			isa = PBXGroup;
 			children = (
+				2B9DFFBE1B83E81B00FBC122 /* Caches.playground */,
 				2B64A7B91B72CCA400859A4C /* MyPlayground.playground */,
 				2B64A7AF1B72B93900859A4C /* MapKit.framework */,
 				2B64A78C1B72A25600859A4C /* Open Sea Map Browser */,
