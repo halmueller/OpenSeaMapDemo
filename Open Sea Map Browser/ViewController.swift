@@ -26,13 +26,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		let myOverlay = OpenSeaMapOverlay()
-		print ("\(myOverlay)", terminator: "")
-		
-//        openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
-//        openSeaMapOverlay.minimumZ = 9
-//        openSeaMapOverlay.maximumZ = 17
-		openSeaMapOverlay = myOverlay
+        let myOverlay = OpenSeaMapOverlay()
+        print ("\(myOverlay)", terminator: "")
+
+        //        openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
+        //        openSeaMapOverlay.minimumZ = 9
+        //        openSeaMapOverlay.maximumZ = 17
+        openSeaMapOverlay = myOverlay
         openSeaMapTileRenderer = MKTileOverlayRenderer(overlay: openSeaMapOverlay)
 
         useOSM = NSUserDefaults.standardUserDefaults().boolForKey(useOpenSeaMapKeystring)
@@ -110,35 +110,32 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let centerLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         geocoder.cancelGeocode()
         geocoder.reverseGeocodeLocation(centerLocation, completionHandler: { (placemarks, error) -> Void in
-            var foundAName = false;
-            var newLocationName: String = ""
-            if error == nil && placemarks.count > 0 {
-                let mark = placemarks[0] as! CLPlacemark
-                if (mark.ocean != nil) {
-                    foundAName = true
-                    newLocationName += mark.ocean
-                    if (mark.inlandWater != nil) && (mark.inlandWater != mark.ocean) {
-                        newLocationName += " (\(mark.inlandWater))"
+            var newLocationName = self.locationFormatter.stringFromCoordinate(mapView.centerCoordinate)!
+            defer {dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.navigationItem.title = newLocationName})}
+            if error != nil {
+//                print("Error: \(error!.localizedDescription)")
+                return
+            }
+            if let watermarks = placemarks?.filter({$0.ocean != nil || $0.inlandWater != nil}) {
+                if watermarks.count > 0 {
+//                    print("\(watermarks.count) watermarks")
+//                    print("watermarks \(watermarks)")
+                    let mark = watermarks[0]
+                    if (mark.ocean != nil) {
+                        newLocationName = mark.ocean!
+                        if (mark.inlandWater != nil) && (mark.inlandWater != mark.ocean) {
+                            newLocationName += " (\(mark.inlandWater))"
+                        }
+                    }
+                    else if (mark.inlandWater != nil) {
+                        newLocationName = "\(mark.inlandWater)"
                     }
                 }
-                else if (mark.inlandWater != nil) {
-                    foundAName = true
-                    newLocationName += "\(mark.inlandWater)"
-                }
-            }
-
-            if foundAName {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.navigationItem.title = newLocationName
-                })
-            }
-            else {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.navigationItem.title = self.locationFormatter.stringFromCoordinate(mapView.centerCoordinate)
-                })
             }
         })
     }
+
 
     @IBAction func changeMap(sender: AnyObject) {
         performSegueWithIdentifier("settingsSegue", sender: sender)
