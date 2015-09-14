@@ -13,7 +13,7 @@ extension NSUserDefaults {
     func setRegion(region:MKCoordinateRegion? , forKey:String)
     {
         if let r = region {
-            var data:[String:AnyObject] = ["lat":r.center.latitude, "lon":r.center.longitude, "latDelta":r.span.latitudeDelta, "lonDelta":r.span.longitudeDelta]
+            let data:[String:AnyObject] = ["lat":r.center.latitude, "lon":r.center.longitude, "latDelta":r.span.latitudeDelta, "lonDelta":r.span.longitudeDelta]
             self.setObject(NSKeyedArchiver.archivedDataWithRootObject(data), forKey: forKey)
         }
     }
@@ -22,17 +22,17 @@ extension NSUserDefaults {
     {
         if let k = key
         {
-            var possibleData = NSUserDefaults.standardUserDefaults().objectForKey(k) as! NSData?
+            let possibleData = NSUserDefaults.standardUserDefaults().objectForKey(k) as! NSData?
             if let data = possibleData {
 
                 var object:[String:AnyObject] = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [String: AnyObject]
 
-                var lat = object["lat"] as! CLLocationDegrees
-                var lon = object["lon"] as! CLLocationDegrees
-                var latDelta = object["latDelta"] as! CLLocationDegrees
-                var lonDelta = object["lonDelta"] as! CLLocationDegrees
+                let lat = object["lat"] as! CLLocationDegrees
+                let lon = object["lon"] as! CLLocationDegrees
+                let latDelta = object["latDelta"] as! CLLocationDegrees
+                let lonDelta = object["lonDelta"] as! CLLocationDegrees
 
-                var region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(lat , lon),  MKCoordinateSpanMake(latDelta, lonDelta))
+                let region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(lat , lon),  MKCoordinateSpanMake(latDelta, lonDelta))
                 return region
             }
         }

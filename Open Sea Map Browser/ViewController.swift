@@ -27,7 +27,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         super.viewDidLoad()
 
 		let myOverlay = OpenSeaMapOverlay()
-		print ("\(myOverlay)")
+		print ("\(myOverlay)", terminator: "")
 		
 //        openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
 //        openSeaMapOverlay.minimumZ = 9
@@ -56,7 +56,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.delegate = self;
 
         let trackingItem = MKUserTrackingBarButtonItem(mapView:mapView)
-        let basemapItem = UIBarButtonItem(title: "Settings", style: .Plain, target: self, action: "changeMap:")
+        _ = UIBarButtonItem(title: "Settings", style: .Plain, target: self, action: "changeMap:")
         toolbarItems?.insert(trackingItem, atIndex: 0)
 
         locationFormatter = TTTGeocoordinateFormatter.degreesMinutesGeocoordinateFormatter()
@@ -72,15 +72,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
     // MARK: MKMapViewDelegate
 
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-        if overlay is MKTileOverlay {
-            return openSeaMapTileRenderer
-        }
-        NSLog("no renderer found")
-        return nil
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        assert(overlay is MKTileOverlay)
+        return openSeaMapTileRenderer
     }
 
-    func mapViewWillStartLocatingUser(mapView: MKMapView!) {
+    func mapViewWillStartLocatingUser(mapView: MKMapView) {
         let status = CLLocationManager.authorizationStatus()
 
         if status == CLAuthorizationStatus.NotDetermined {
@@ -88,7 +85,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
 
-    func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         if (locationFormatter != nil) {
             updateLocationNameForCenterOfMapView(mapView)
         }

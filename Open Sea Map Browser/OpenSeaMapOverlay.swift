@@ -19,23 +19,23 @@ class OpenSeaMapOverlay: MKTileOverlay {
 		self.minimumZ = 9
 		self.maximumZ = 17
 		self.canReplaceMapContent = false
-		println("initialized")
+		print("initialized")
 		
 		//		if (TARGET_IPHONE_SIMULATOR == 1) {
 		let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)
 		let cachesDirectory : AnyObject = paths[0]
-		println("Caches Directory is \(cachesDirectory)")
+		print("Caches Directory is \(cachesDirectory)")
 		//		}
 	}
 	
 	override func loadTileAtPath(path: MKTileOverlayPath,
-		result: ((NSData!, NSError!) -> Void)!) {
+		result: ((NSData?, NSError?) -> Void)) {
 			
 			let parentYFolderURL = URLForTilecacheFolder().URLByAppendingPathComponent(self.cacheYFolderNameForPath(path))
 			let tileFilePathURL = parentYFolderURL.URLByAppendingPathComponent(filePathForTile(path))
 			let tileFilePath = tileFilePathURL.path!
 			if NSFileManager.defaultManager().fileExistsAtPath(tileFilePath) {
-				println("found \(tileFilePath)")
+				print("found \(tileFilePath)")
 				let cachedData = NSData(contentsOfFile: tileFilePath)
 				result(cachedData, nil)
 			}
@@ -46,18 +46,21 @@ class OpenSeaMapOverlay: MKTileOverlay {
 					if response != nil {
 						let httpResponse = response as! NSHTTPURLResponse
 						if httpResponse.statusCode == 200 {
-							NSFileManager.defaultManager().createDirectoryAtURL(parentYFolderURL,
-								withIntermediateDirectories: true, attributes: nil, error: nil)
+							do {
+								try NSFileManager.defaultManager().createDirectoryAtURL(parentYFolderURL,
+									withIntermediateDirectories: true, attributes: nil)
+							} catch _ {
+							}
 							let image: UIImage? = UIImage(data: data)
 							if !data.writeToFile(tileFilePath, atomically: true) {
 								dispatch_async(dispatch_get_main_queue(),
-									{println("couldn't write \(tileFilePath)")})
+									{print("couldn't write \(tileFilePath)")})
 							}
 							result(data, error)
 						}
 						else {
 							dispatch_async(dispatch_get_main_queue(),
-								{println("response \(httpResponse.statusCode) \(request.URL)")})
+								{print("response \(httpResponse.statusCode) \(request.URL)")})
 						}
 					}
 				}
@@ -66,7 +69,7 @@ class OpenSeaMapOverlay: MKTileOverlay {
 	
 	// path to x.png, starting from cacheYFolderNameForPath
 	private func filePathForTile(path: MKTileOverlayPath) -> String {
-		let parentPath = cacheYFolderNameForPath(path)
+		_ = cacheYFolderNameForPath(path)
 		return "/\(path.x).png"
 	}
 	
@@ -77,8 +80,8 @@ class OpenSeaMapOverlay: MKTileOverlay {
 	
 	// folder within app's Library/Caches to use for this particular overlay
 	private func URLForTilecacheFolder() -> NSURL {
-		let URLForAppCacheFolder : NSURL = NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.CachesDirectory,
-			inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true, error: nil)!
+		let URLForAppCacheFolder : NSURL = try! NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.CachesDirectory,
+			inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true)
 		return URLForAppCacheFolder.URLByAppendingPathComponent(parentDirectory, isDirectory: true)
 	}
 	
@@ -89,11 +92,14 @@ class OpenSeaMapOverlay: MKTileOverlay {
 	private func zcreateCacheFolderForPath(path: MKTileOverlayPath) {
 		let tilePathString = cacheYFolderNameForPath(path)
 		let tileURL = NSURL.fileURLWithPath(tilePathString)
-		let URLForAppCacheFolder : NSURL? = NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.CachesDirectory,
-			inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true, error: nil)
+		let URLForAppCacheFolder : NSURL? = try? NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.CachesDirectory,
+			inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true)
 		if let URLForYFolder = URLForAppCacheFolder?.URLByAppendingPathComponent(tilePathString, isDirectory: true) {
-			NSFileManager.defaultManager().createDirectoryAtURL(URLForYFolder, withIntermediateDirectories: true, attributes: nil, error: nil)
-			dispatch_async(dispatch_get_main_queue(), {println("should make \(URLForYFolder)")})
+			do {
+				try NSFileManager.defaultManager().createDirectoryAtURL(URLForYFolder, withIntermediateDirectories: true, attributes: nil)
+			} catch _ {
+			}
+			dispatch_async(dispatch_get_main_queue(), {print("should make \(URLForYFolder)")})
 		}
 		
 	}

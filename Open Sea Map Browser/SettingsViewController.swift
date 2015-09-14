@@ -37,6 +37,12 @@ class SettingsViewController: UIViewController {
             mapTypeSegmentedController.selectedSegmentIndex = 2
         case .Hybrid:
             mapTypeSegmentedController.selectedSegmentIndex = 1
+        case .SatelliteFlyover:
+            print("not handled yet")
+            mapTypeSegmentedController.selectedSegmentIndex = 0
+        case .HybridFlyover:
+            print("not handled yet")
+            mapTypeSegmentedController.selectedSegmentIndex = 0
         }
     }
 
