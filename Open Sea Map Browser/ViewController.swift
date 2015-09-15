@@ -27,7 +27,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         super.viewDidLoad()
 
         let myOverlay = OpenSeaMapOverlay()
-        print ("\(myOverlay)", terminator: "")
 
         //        openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
         //        openSeaMapOverlay.minimumZ = 9
@@ -125,11 +124,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     if (mark.ocean != nil) {
                         newLocationName = mark.ocean!
                         if (mark.inlandWater != nil) && (mark.inlandWater != mark.ocean) {
-                            newLocationName += " (\(mark.inlandWater))"
+                            newLocationName += " (\(mark.inlandWater!))"
                         }
                     }
                     else if (mark.inlandWater != nil) {
-                        newLocationName = "\(mark.inlandWater)"
+                        newLocationName = "\(mark.inlandWater!)"
                     }
                 }
             }
