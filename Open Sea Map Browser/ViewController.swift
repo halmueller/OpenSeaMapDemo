@@ -26,12 +26,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let myOverlay = OpenSeaMapOverlay()
-
-        //        openSeaMapOverlay = MKTileOverlay(URLTemplate:"http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png")
-        //        openSeaMapOverlay.minimumZ = 9
-        //        openSeaMapOverlay.maximumZ = 17
-        openSeaMapOverlay = myOverlay
+        openSeaMapOverlay = OpenSeaMapOverlay()
         openSeaMapTileRenderer = MKTileOverlayRenderer(overlay: openSeaMapOverlay)
 
         useOSM = NSUserDefaults.standardUserDefaults().boolForKey(useOpenSeaMapKeystring)
@@ -51,6 +46,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if let mapType = MKMapType(rawValue: UInt(NSUserDefaults.standardUserDefaults().integerForKey(mapStyleKeystring))) {
             mapView.mapType = mapType
         }
+        mapView.showsScale = true
+
         locationManager = CLLocationManager()
         locationManager.delegate = self;
 

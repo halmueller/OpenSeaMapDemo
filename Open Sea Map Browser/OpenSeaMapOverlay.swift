@@ -24,15 +24,15 @@ class OpenSeaMapOverlay: MKTileOverlay {
 		
 		#if (arch(i386) || arch(x86_64)) && os(iOS)
 			let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-			let cachesDirectory : AnyObject = paths[0]
-			print("Caches Directory is \(cachesDirectory)")
+			let cachesDirectory = paths[0]
+			print("Caches Directory:")
+            print(cachesDirectory)
 		#endif
 	}
 	
 	override func loadTileAtPath(path: MKTileOverlayPath,
 		result: ((NSData?, NSError?) -> Void)) {
 			
-			// MARK: This section feels very Unswiftie to me
 			let parentXFolderURL = URLForTilecacheFolder().URLByAppendingPathComponent(self.cacheXFolderNameForPath(path))
 			let tileFilePathURL = parentXFolderURL.URLByAppendingPathComponent(filePathForTile(path))
 			let tileFilePath = tileFilePathURL.path!
@@ -49,45 +49,48 @@ class OpenSeaMapOverlay: MKTileOverlay {
 				}
 			}
 			if (useCachedVersion) {
-				print("cached", tileFilePath)
+//				print("cached", tileFilePath)
 				let cachedData = NSData(contentsOfFile: tileFilePath)
 				result(cachedData, nil)
 			}
 			else {
 				let request = NSURLRequest(URL: self.URLForTilePath(path))
-				// TODO: switch to NSURLSession
-				print("fetching", request)
-				NSURLConnection.sendAsynchronousRequest(request, queue: operationQueue) { (response, data , error)  in
-					if response != nil {
-						let httpResponse = response as! NSHTTPURLResponse
-						if httpResponse.statusCode == 200 {
-							do {
-								try NSFileManager.defaultManager().createDirectoryAtURL(parentXFolderURL,
-									withIntermediateDirectories: true, attributes: nil)
-							} catch {
-								print("Couldn't create", parentXFolderURL, error)
-							}
-							if !data!.writeToFile(tileFilePath, atomically: true) {
-								dispatch_async(dispatch_get_main_queue(),
-									{print("couldn't write", tileFilePath)})
-							}
-							print("wrote", tileFilePath);
-							result(data, error)
-						}
-						else {
-							dispatch_async(dispatch_get_main_queue(),
-								{
-									print("response", httpResponse.statusCode, request.URL)
-							})
-						}
-					}
-				}
+//				print("fetching", request)
+                let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, response, error)  in
+                    if response != nil {
+                        if let httpResponse = response as? NSHTTPURLResponse {
+                        if httpResponse.statusCode == 200 {
+                            do {
+                                try NSFileManager.defaultManager().createDirectoryAtURL(parentXFolderURL,
+                                    withIntermediateDirectories: true, attributes: nil)
+                            } catch {
+//                                dispatch_async(dispatch_get_main_queue(),
+//                                    {print("Couldn't create", parentXFolderURL, error)})
+                            }
+                            if !data!.writeToFile(tileFilePath, atomically: true) {
+//                                dispatch_async(dispatch_get_main_queue(),
+//                                    {print("couldn't write", tileFilePath)})
+                            }
+//                            dispatch_async(dispatch_get_main_queue(),
+//                                {print("wrote", tileFilePath)})
+                            result(data, error)
+                        }
+                        else {
+                            dispatch_async(dispatch_get_main_queue(),
+                                {
+//                                    print("response", httpResponse.statusCode, request.URL)
+                            })
+                        }
+                        }
+                    }
+                    }
+                    )
+                task.resume()
 			}
 	}
 	
 	// path to y.png, starting from cacheYFolderNameForPath
 	private func filePathForTile(path: MKTileOverlayPath) -> String {
-		print(cacheXFolderNameForPath(path))
 		return "\(path.y).png"
 	}
 	
