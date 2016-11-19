@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var useOSMSwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
-        preferredContentSize = CGSizeMake(300, 400)
+        preferredContentSize = CGSize(width: 300, height: 400)
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,22 +25,22 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         let switchSetting = mapViewController?.useOSM
         useOSMSwitch.setOn(switchSetting!, animated: true)
 
         let mapType = mapViewController?.mapView.mapType
         switch (mapType!) {
-        case .Standard:
+        case .standard:
             mapTypeSegmentedController.selectedSegmentIndex = 0
-        case .Satellite:
+        case .satellite:
             mapTypeSegmentedController.selectedSegmentIndex = 2
-        case .Hybrid:
+        case .hybrid:
             mapTypeSegmentedController.selectedSegmentIndex = 1
-        case .SatelliteFlyover:
+        case .satelliteFlyover:
             print("not handled yet")
             mapTypeSegmentedController.selectedSegmentIndex = 0
-        case .HybridFlyover:
+        case .hybridFlyover:
             print("not handled yet")
             mapTypeSegmentedController.selectedSegmentIndex = 0
         }
@@ -56,35 +56,35 @@ class SettingsViewController: UIViewController {
     }
     */
 
-    @IBAction func done(sender: AnyObject) {
-        dismissViewControllerAnimated(true) { () -> Void in
+    @IBAction func done(_ sender: AnyObject) {
+        dismiss(animated: true) { () -> Void in
 
         }
     }
 
-    @IBAction func reloadOpenSeaMapTiles(sender: AnyObject) {
+    @IBAction func reloadOpenSeaMapTiles(_ sender: AnyObject) {
         mapViewController?.reloadOpenSeaMapOverlay()
     }
 
-    @IBAction func visitOpenSeaMapWebsite(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.openseamap.org/index.php?id=openseamap&L=1")!)
+    @IBAction func visitOpenSeaMapWebsite(_ sender: AnyObject) {
+        UIApplication.shared.openURL(URL(string: "http://www.openseamap.org/index.php?id=openseamap&L=1")!)
     }
-    @IBAction func changeMapType(sender: UISegmentedControl) {
+    @IBAction func changeMapType(_ sender: UISegmentedControl) {
         switch (sender.selectedSegmentIndex) {
         case 0:
-            mapViewController?.mapView.mapType = .Standard
+            mapViewController?.mapView.mapType = .standard
         case 1:
-            mapViewController?.mapView.mapType = .Hybrid
+            mapViewController?.mapView.mapType = .hybrid
         case 2:
-            mapViewController?.mapView.mapType = .Satellite
+            mapViewController?.mapView.mapType = .satellite
         default:
-            mapViewController?.mapView.mapType = .Standard
+            mapViewController?.mapView.mapType = .standard
         }
         let mapType = mapViewController?.mapView?.mapType
-        NSUserDefaults.standardUserDefaults().setInteger( Int(mapType!.rawValue),
+        UserDefaults.standard.set( Int(mapType!.rawValue),
             forKey:mapStyleKeystring)
     }
-    @IBAction func changeOSMOverlay(sender: UISwitch) {
+    @IBAction func changeOSMOverlay(_ sender: UISwitch) {
         mapViewController?.toggleUseOSM()
     }
 }

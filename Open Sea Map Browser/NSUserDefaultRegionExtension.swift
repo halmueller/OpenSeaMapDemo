@@ -9,23 +9,23 @@
 import UIKit
 import MapKit
 
-extension NSUserDefaults {
-    func setRegion(region:MKCoordinateRegion? , forKey:String)
+extension UserDefaults {
+    func setRegion(_ region:MKCoordinateRegion? , forKey:String)
     {
         if let r = region {
-            let data:[String:AnyObject] = ["lat":r.center.latitude, "lon":r.center.longitude, "latDelta":r.span.latitudeDelta, "lonDelta":r.span.longitudeDelta]
-            self.setObject(NSKeyedArchiver.archivedDataWithRootObject(data), forKey: forKey)
+            let data:[String:AnyObject] = ["lat":r.center.latitude as AnyObject, "lon":r.center.longitude as AnyObject, "latDelta":r.span.latitudeDelta as AnyObject, "lonDelta":r.span.longitudeDelta as AnyObject]
+            self.set(NSKeyedArchiver.archivedData(withRootObject: data), forKey: forKey)
         }
     }
 
-    func regionForKey(key:String?) -> MKCoordinateRegion?
+    func regionForKey(_ key:String?) -> MKCoordinateRegion?
     {
         if let k = key
         {
-            let possibleData = NSUserDefaults.standardUserDefaults().objectForKey(k) as! NSData?
+            let possibleData = UserDefaults.standard.object(forKey: k) as! Data?
             if let data = possibleData {
 
-                var object:[String:AnyObject] = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [String: AnyObject]
+                var object:[String:AnyObject] = NSKeyedUnarchiver.unarchiveObject(with: data) as! [String: AnyObject]
 
                 let lat = object["lat"] as! CLLocationDegrees
                 let lon = object["lon"] as! CLLocationDegrees

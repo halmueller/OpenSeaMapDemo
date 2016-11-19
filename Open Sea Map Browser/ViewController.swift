@@ -29,12 +29,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         openSeaMapOverlay = OpenSeaMapOverlay()
         openSeaMapTileRenderer = MKTileOverlayRenderer(overlay: openSeaMapOverlay)
 
-        useOSM = NSUserDefaults.standardUserDefaults().boolForKey(useOpenSeaMapKeystring)
+        useOSM = UserDefaults.standard.bool(forKey: useOpenSeaMapKeystring)
         if useOSM {
-            mapView.addOverlay(openSeaMapOverlay, level: MKOverlayLevel.AboveRoads)
+            mapView.add(openSeaMapOverlay, level: MKOverlayLevel.aboveRoads)
         }
 
-        if let storedRegion = NSUserDefaults.standardUserDefaults().regionForKey(regionDefaultsKeystring) {
+        if let storedRegion = UserDefaults.standard.regionForKey(regionDefaultsKeystring) {
             mapView.setRegion(storedRegion, animated: true)
         }
         else {
@@ -43,7 +43,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             mapView.setRegion(demoRegion, animated: true)
         }
 
-        if let mapType = MKMapType(rawValue: UInt(NSUserDefaults.standardUserDefaults().integerForKey(mapStyleKeystring))) {
+        if let mapType = MKMapType(rawValue: UInt(UserDefaults.standard.integer(forKey: mapStyleKeystring))) {
             mapView.mapType = mapType
         }
         mapView.showsScale = true
@@ -52,10 +52,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.delegate = self;
 
         let trackingItem = MKUserTrackingBarButtonItem(mapView:mapView)
-        _ = UIBarButtonItem(title: "Settings", style: .Plain, target: self, action: "changeMap:")
-        toolbarItems?.insert(trackingItem, atIndex: 0)
+        _ = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(ViewController.changeMap(_:)))
+        toolbarItems?.insert(trackingItem, at: 0)
 
-        locationFormatter = TTTGeocoordinateFormatter.degreesMinutesGeocoordinateFormatter()
+        locationFormatter = TTTGeocoordinateFormatter.degreesMinutes()
 
         geocoder = CLGeocoder()
 
@@ -68,46 +68,46 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
     // MARK: MKMapViewDelegate
 
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         assert(overlay is MKTileOverlay)
         return openSeaMapTileRenderer
     }
 
-    func mapViewWillStartLocatingUser(mapView: MKMapView) {
+    func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
         let status = CLLocationManager.authorizationStatus()
 
-        if status == CLAuthorizationStatus.NotDetermined {
+        if status == CLAuthorizationStatus.notDetermined {
             locationManager.requestWhenInUseAuthorization()
         }
     }
 
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         if (locationFormatter != nil) {
             updateLocationNameForCenterOfMapView(mapView)
         }
         let mapRegion = mapView.region
-        NSUserDefaults.standardUserDefaults().setRegion(mapRegion, forKey: regionDefaultsKeystring)
+        UserDefaults.standard.setRegion(mapRegion, forKey: regionDefaultsKeystring)
     }
     // MARK: custom
 
     func toggleUseOSM () {
         if useOSM {
             useOSM = false
-            mapView.removeOverlay(openSeaMapOverlay)
+            mapView.remove(openSeaMapOverlay)
         }
         else {
             useOSM = true
-            mapView.addOverlay(openSeaMapOverlay)
+            mapView.add(openSeaMapOverlay)
         }
-        NSUserDefaults.standardUserDefaults().setBool(useOSM, forKey: useOpenSeaMapKeystring)
+        UserDefaults.standard.set(useOSM, forKey: useOpenSeaMapKeystring)
     }
 
-    func updateLocationNameForCenterOfMapView(mapView: MKMapView!) {
+    func updateLocationNameForCenterOfMapView(_ mapView: MKMapView!) {
         let centerLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         geocoder.cancelGeocode()
         geocoder.reverseGeocodeLocation(centerLocation, completionHandler: { (placemarks, error) -> Void in
-            var newLocationName = self.locationFormatter.stringFromCoordinate(mapView.centerCoordinate)!
-            defer {dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            var newLocationName = self.locationFormatter.string(from: mapView.centerCoordinate)!
+            defer {DispatchQueue.main.async(execute: { () -> Void in
                 self.navigationItem.title = newLocationName})}
             if error != nil {
 //                print("Error: \(error!.localizedDescription)")
@@ -133,17 +133,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
 
 
-    @IBAction func changeMap(sender: AnyObject) {
-        performSegueWithIdentifier("settingsSegue", sender: sender)
+    @IBAction func changeMap(_ sender: AnyObject) {
+        performSegue(withIdentifier: "settingsSegue", sender: sender)
     }
 
     func reloadOpenSeaMapOverlay () {
         openSeaMapTileRenderer.reloadData()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "settingsSegue" {
-            let settingsVC = segue.destinationViewController as! SettingsViewController
+            let settingsVC = segue.destination as! SettingsViewController
             settingsVC.mapViewController = self
         }
     }
